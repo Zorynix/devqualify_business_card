@@ -2,57 +2,83 @@ import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
 import * as Tabs from '@radix-ui/react-tabs';
 import { useState } from 'react';
+import {
+  SiKotlin,
+  SiJetpackcompose,
+  SiAndroid,
+  SiGradle,
+  SiGo,
+  SiPostgresql,
+  SiNeo4j,
+  SiApachekafka,
+  SiJsonwebtokens,
+  SiDocker,
+  SiKubernetes,
+  SiHelm,
+  SiGitlab,
+  SiPrometheus,
+  SiGrafana,
+} from '@icons-pack/react-simple-icons';
+import { 
+  Layers, 
+  Syringe, 
+  Globe, 
+  FileJson, 
+  ImageIcon, 
+  TestTube,
+  Search,
+  Zap,
+  Mail,
+  Container,
+  FileCode,
+  ScrollText,
+  Database
+} from 'lucide-react';
+
 
 const clientStack = [
-  { name: 'Kotlin', description: 'Основной язык разработки', category: 'Language' },
-  { name: 'Jetpack Compose', description: 'Современный UI toolkit', category: 'UI' },
-  { name: 'MVVM', description: 'Архитектурный паттерн', category: 'Architecture' },
-  { name: 'Dagger Hilt', description: 'Dependency Injection', category: 'DI' },
-  { name: 'Retrofit', description: 'HTTP клиент', category: 'Network' },
-  { name: 'Protobuf', description: 'Сериализация данных', category: 'Serialization' },
-  { name: 'Coil', description: 'Загрузка изображений', category: 'Media' },
-  { name: 'Mockito', description: 'Тестирование', category: 'Testing' },
-  { name: 'Detekt', description: 'Статический анализ', category: 'Quality' },
-  { name: 'Orhanobut Logger', description: 'Логирование', category: 'Logging' },
+  { name: 'Kotlin', description: 'Основной язык разработки', icon: SiKotlin, color: '#7F52FF' },
+  { name: 'Jetpack Compose', description: 'Современный UI toolkit', icon: SiJetpackcompose, color: '#4285F4' },
+  { name: 'MVVM', description: 'Архитектурный паттерн', icon: Layers, color: '#10B981' },
+  { name: 'Dagger Hilt', description: 'Dependency Injection', icon: Syringe, color: '#FF6B6B' },
+  { name: 'Retrofit', description: 'HTTP клиент', icon: Globe, color: '#48BB78' },
+  { name: 'Protobuf', description: 'Сериализация данных', icon: FileJson, color: '#4299E1' },
+  { name: 'Coil', description: 'Загрузка изображений', icon: ImageIcon, color: '#F59E0B' },
+  { name: 'Mockito', description: 'Тестирование', icon: TestTube, color: '#8B5CF6' },
+  { name: 'Gradle', description: 'Система сборки', icon: SiGradle, color: '#02303A' },
 ];
+
 
 const backendStack = [
-  { name: 'Golang', description: 'Основной язык бэкенда', category: 'Language' },
-  { name: 'Microservices', description: '4 микросервиса', category: 'Architecture' },
-  { name: 'gRPC', description: 'Межсервисная коммуникация', category: 'Communication' },
-  { name: 'Protobuf', description: 'Сериализация данных', category: 'Serialization' },
-  { name: 'PostgreSQL', description: 'Основная БД', category: 'Database' },
-  { name: 'Neo4j', description: 'Граф связей пользователей', category: 'Database' },
-  { name: 'pgx', description: 'PostgreSQL драйвер', category: 'Database' },
-  { name: 'sqlc', description: 'Генерация SQL', category: 'Database' },
-  { name: 'Manticoresearch', description: 'Полнотекстовый поиск', category: 'Search' },
-  { name: 'Redpanda', description: 'Message broker', category: 'Messaging' },
-  { name: 'JWT', description: 'Аутентификация', category: 'Security' },
-  { name: 'Dragonfly', description: 'Кэширование', category: 'Cache' },
-  { name: 'Uber FX', description: 'DI Framework', category: 'DI' },
-  { name: 'Uber Zap', description: 'Логирование', category: 'Logging' },
-  { name: 'SMTP', description: 'Email уведомления', category: 'Notifications' },
+  { name: 'Golang', description: 'Основной язык бэкенда', icon: SiGo, color: '#00ADD8' },
+  { name: 'gRPC', description: 'Межсервисная коммуникация', icon: Zap, color: '#244C5A' },
+  { name: 'Protobuf', description: 'Сериализация данных', icon: FileJson, color: '#4299E1' },
+  { name: 'PostgreSQL', description: 'Основная БД', icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Neo4j', description: 'Граф связей пользователей', icon: SiNeo4j, color: '#008CC1' },
+  { name: 'Manticoresearch', description: 'Полнотекстовый поиск', icon: Search, color: '#4F46E5' },
+  { name: 'Redpanda', description: 'Message broker', icon: SiApachekafka, color: '#E4393C' },
+  { name: 'JWT', description: 'Аутентификация', icon: SiJsonwebtokens, color: '#000000' },
+  { name: 'Dragonfly', description: 'Кэширование', icon: Database, color: '#22C55E' },
+  { name: 'SMTP', description: 'Email уведомления', icon: Mail, color: '#EC4899' },
 ];
 
+
 const devopsStack = [
-  { name: 'Docker', description: 'Контейнеризация', category: 'Containers' },
-  { name: 'Docker Compose', description: 'Локальная разработка', category: 'Containers' },
-  { name: 'Kubernetes', description: 'Оркестрация', category: 'Orchestration' },
-  { name: 'Helm', description: 'Package manager для K8s', category: 'Orchestration' },
-  { name: 'GitLab CI/CD', description: 'Пайплайны деплоя', category: 'CI/CD' },
-  { name: 'Prometheus', description: 'Мониторинг метрик', category: 'Monitoring' },
-  { name: 'Grafana', description: 'Визуализация', category: 'Monitoring' },
-  { name: 'Loki', description: 'Агрегация логов', category: 'Logging' },
-  { name: 'PGmigrate', description: 'Миграции БД', category: 'Database' },
-  { name: 'Testcontainers', description: 'Интеграционные тесты', category: 'Testing' },
-  { name: 'Task', description: 'Task runner', category: 'Tooling' },
-  { name: 'Makefile', description: 'Автоматизация', category: 'Tooling' },
+  { name: 'Docker', description: 'Контейнеризация', icon: SiDocker, color: '#2496ED' },
+  { name: 'Kubernetes', description: 'Оркестрация', icon: SiKubernetes, color: '#326CE5' },
+  { name: 'Helm', description: 'Package manager для K8s', icon: SiHelm, color: '#0F1689' },
+  { name: 'GitLab CI/CD', description: 'Пайплайны деплоя', icon: SiGitlab, color: '#FC6D26' },
+  { name: 'Prometheus', description: 'Мониторинг метрик', icon: SiPrometheus, color: '#E6522C' },
+  { name: 'Grafana', description: 'Визуализация', icon: SiGrafana, color: '#F46800' },
+  { name: 'Loki', description: 'Агрегация логов', icon: ScrollText, color: '#F4D03F' },
+  { name: 'Testcontainers', description: 'Интеграционные тесты', icon: Container, color: '#2496ED' },
+  { name: 'Makefile', description: 'Автоматизация', icon: FileCode, color: '#6366F1' },
 ];
 
 const tabs = [
-  { id: 'client', label: 'Android', icon: '📱', stack: clientStack, color: 'from-green-500 to-emerald-500' },
-  { id: 'backend', label: 'Backend', icon: '⚙️', stack: backendStack, color: 'from-blue-500 to-cyan-500' },
-  { id: 'devops', label: 'DevOps', icon: '🚀', stack: devopsStack, color: 'from-purple-500 to-pink-500' },
+  { id: 'client', label: 'Android', icon: SiAndroid, stack: clientStack, color: 'from-green-500 to-emerald-500' },
+  { id: 'backend', label: 'Backend', icon: SiGo, stack: backendStack, color: 'from-blue-500 to-cyan-500' },
+  { id: 'devops', label: 'DevOps', icon: SiKubernetes, stack: devopsStack, color: 'from-purple-500 to-pink-500' },
 ];
 
 export function TechStack() {
@@ -95,7 +121,7 @@ export function TechStack() {
                 key={tab.id}
                 value={tab.id}
                 className={cn(
-                  'px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base',
+                  'flex items-center gap-2 px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base',
                   'transition-all duration-300',
                   'data-[state=inactive]:bg-dark-700/50 data-[state=inactive]:text-gray-400',
                   'data-[state=inactive]:hover:bg-dark-600/50',
@@ -104,7 +130,7 @@ export function TechStack() {
                   activeTab === tab.id && tab.color
                 )}
               >
-                <span className="mr-2">{tab.icon}</span>
+                <tab.icon className="w-5 h-5" />
                 {tab.label}
               </Tabs.Trigger>
             ))}
@@ -118,36 +144,42 @@ export function TechStack() {
                 transition={{ duration: 0.3 }}
                 className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
               >
-                {tab.stack.map((tech, index) => (
-                  <motion.div
-                    key={tech.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    className={cn(
-                      'group p-4 rounded-xl',
-                      'bg-dark-700/50 border border-dark-600/50',
-                      'hover:border-primary-500/30 hover:bg-dark-600/50',
-                      'transition-all duration-300 cursor-default'
-                    )}
-                  >
-                    <div className="text-center">
-                      <h4 className="font-semibold text-sm sm:text-base mb-1 group-hover:text-primary-400 transition-colors">
-                        {tech.name}
-                      </h4>
-                      <p className="text-xs text-gray-500 hidden sm:block">
-                        {tech.description}
-                      </p>
-                      <span className={cn(
-                        'inline-block mt-2 px-2 py-0.5 rounded-full text-xs',
-                        'bg-dark-600 text-gray-400'
-                      )}>
-                        {tech.category}
-                      </span>
-                    </div>
-                  </motion.div>
-                ))}
+                {tab.stack.map((tech, index) => {
+                  const IconComponent = tech.icon;
+                  return (
+                    <motion.div
+                      key={tech.name}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      whileHover={{ scale: 1.05, y: -4 }}
+                      className={cn(
+                        'group p-4 rounded-xl',
+                        'bg-dark-700/50 border border-dark-600/50',
+                        'hover:border-primary-500/30 hover:bg-dark-600/50',
+                        'transition-all duration-300 cursor-default'
+                      )}
+                    >
+                      <div className="flex flex-col items-center text-center">
+                        <div 
+                          className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
+                          style={{ backgroundColor: `${tech.color}20` }}
+                        >
+                          <IconComponent 
+                            className="w-6 h-6" 
+                            style={{ color: tech.color }}
+                          />
+                        </div>
+                        <h4 className="font-semibold text-sm mb-1 group-hover:text-primary-400 transition-colors">
+                          {tech.name}
+                        </h4>
+                        <p className="text-xs text-gray-500 hidden sm:block">
+                          {tech.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </Tabs.Content>
           ))}
