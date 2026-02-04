@@ -1,0 +1,11 @@
+export { Header } from './Header';
+export { Hero } from './Hero';
+export { Stats } from './Stats';
+export { Features } from './Features';
+export { TechStack } from './TechStack';
+export { Architecture } from './Architecture';
+export { Roadmap } from './Roadmap';
+export { Screenshots } from './Screenshots';
+export { Testimonials } from './Testimonials';
+export { DownloadSection } from './Download';
+export { Footer } from './Footer';
